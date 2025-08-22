@@ -1,9 +1,11 @@
 from agents import Agent, WebSearchTool, function_tool, Runner
 
 @function_tool
-def save_results(output):
-    # db.insert({"output": output, "timestamp": datetime.time()})
-    return "File saved successfully."
+def save_results(output : str) -> str:
+    print(f"-------------------------")
+    print(output)
+    print(f"-------------------------")
+    return f"Results saved: {output}" 
 
 serach_agent = Agent(
     name="SearchAgent",
@@ -11,4 +13,5 @@ serach_agent = Agent(
     tools=[WebSearchTool(), save_results],
 )
 
-Runner.run_sync(serach_agent, input="What's the weather like in New York?")
+result = Runner.run_sync(serach_agent, "What is disney company? save results")
+print(result.final_output)

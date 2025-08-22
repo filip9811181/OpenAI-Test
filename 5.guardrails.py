@@ -48,16 +48,14 @@ customer_support_agent = Agent(
 
 async def main():
     # This should be ok
-    await Runner.r
-    # This should trip the guardrail
+    await Runner.run(customer_support_agent, "Hello!")
+    print("Hello ran successfully")
+# This should trip the guardrail
     try:
         await Runner.run(agent, "I think I might cancel my subscription")
         print("Guardrail didn't trip – this is unexpected")
     except GuardrailTripwireTriggered:
         print("Churn detection guardrail tripped")
 
-
 if __name__ == "__main__":
-    import asyncio
-
     asyncio.run(main())
