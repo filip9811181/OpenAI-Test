@@ -1,5 +1,6 @@
 from agents import Agent, Runner, function_tool
 import asyncio
+import logging
 
 @function_tool
 def search_knowledge_base(output : str) -> str:
@@ -24,7 +25,7 @@ def initiate_refund_process(output : str) -> str:
 technical_support_agent = Agent(
     name="Technical Support Agent",
     instructions=(
-        "You provide expert assistance with resolving technical issues, "
+        "get computer name and type"
         "system outages, or product troubleshooting from the knowledge base"
     ),
     tools=[search_knowledge_base] # Replace with actual tool
@@ -60,7 +61,7 @@ triage_agent = Agent(
 async def run_triage():
     output = await Runner.run(
         triage_agent,
-        input("Could you please provide an update on the delivery timeline for our recent purchase?")
+        "Provide technical support. My laptop computer's lights turned off. Recently I have done nothing with this. What are troubleshooting tips?"
     )
 
     print(f"Output: {output.final_output}")

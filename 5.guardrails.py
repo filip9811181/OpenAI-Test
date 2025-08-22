@@ -1,15 +1,15 @@
 from agents import (
     Agent,
     GuardrailFunctionOutput,
-    InputGuardrailTripwireTriggered,
+    InputGuardrailResult as GuardrailTripwireTriggered,
     RunContextWrapper,
     Runner,
     TResponseInputItem,
     input_guardrail,
-    Guardrail,
-    GuardrailTripwireTriggered,
+    OutputGuardrail as Guardrail,
 )
 
+import asyncio
 from pydantic import BaseModel
 
 
@@ -40,8 +40,7 @@ async def churn_detection_tripwire(
 customer_support_agent = Agent(
     name="Customer support agent",
     instructions="You are a customer support agent. You help customers with their questions.",
-    input_guardrails=[
-        Guardrail(guardrail_function=churn_detection_tripwire),
+    input_guardrails=[churn_detection_tripwire,
     ],
 )
 
@@ -52,7 +51,7 @@ async def main():
     print("Hello ran successfully")
 # This should trip the guardrail
     try:
-        await Runner.run(agent, "I think I might cancel my subscription")
+        await Runner.run(customer_support_agent, "I think I might cancel my subscription")
         print("Guardrail didn't trip – this is unexpected")
     except GuardrailTripwireTriggered:
         print("Churn detection guardrail tripped")
