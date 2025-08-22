@@ -2,7 +2,7 @@ from agents import Agent, WebSearchTool, function_tool, Runner
 
 @function_tool
 def save_results(output):
-    db.insert({"output": output, "timestamp": datetime.time()})
+    # db.insert({"output": output, "timestamp": datetime.time()})
     return "File saved successfully."
 
 serach_agent = Agent(
