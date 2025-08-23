@@ -1,7 +1,7 @@
 from agents import (
     Agent,
     GuardrailFunctionOutput,
-    InputGuardrailResult as GuardrailTripwireTriggered,
+    InputGuardrailTripwireTriggered as GuardrailTripwireTriggered,
     RunContextWrapper,
     Runner,
     TResponseInputItem,
@@ -11,8 +11,9 @@ from agents import (
 
 import asyncio
 from pydantic import BaseModel
+import logging
 
-
+logging.basicConfig(level=logging.INFO)
 class ChurnDetectionOutput(BaseModel):
     is_churn_risk: bool
     reasoning: str
